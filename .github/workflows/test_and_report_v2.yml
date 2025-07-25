@@ -39,7 +39,7 @@ jobs:
         with:
           allure-endpoint: ${{ secrets.ALLURE_ENDPOINT }}
           allure-token: ${{ secrets.ALLURE_TOKEN }}
-          allure-project-id: 2310680
+          allure-project-id: 10680
       - name: Run pytest tests with allurectl watcher
         run: | 
           allurectl watch -- pytest --alluredir=${ALLURE_RESULTS} || true
