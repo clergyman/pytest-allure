@@ -34,18 +34,13 @@ jobs:
           pip install -r requirements.txt
           pip install allure-pytest # Ensure allure-pytest is installed
 
-      - name: Run Pytest tests and generate Allure results
-        run: |
-          pytest --alluredir=allure-results # Save raw Allure data to 'allure-results' directory
-        continue-on-error: true # Continue even if some tests fail, so the report can still be generated
-
-      - name: install and configure allurectl
+      - name: Install and configure allurectl
         uses: allure-framework/setup-allurectl@v1
         with:
           allure-endpoint: ${{ secrets.ALLURE_ENDPOINT }}
           allure-token: ${{ secrets.ALLURE_TOKEN }}
-          allure-project-id: 23
-      - name: Run pytest tests
+          allure-project-id: 2310680
+      - name: Run pytest tests with allurectl watcher
         run: | 
           allurectl watch -- pytest --alluredir=${ALLURE_RESULTS} || true
           printenv | grep "ALLURE\|GITHUB" > env.list
@@ -55,7 +50,5 @@ jobs:
           echo "Now, printing what we have in env.list"
           cat env.list
         env:
-          TEST_ENDPOINT: ${{ github.event.inputs.TEST_ENDPOINT }}
-          TEST_BROWSER: ${{ github.event.inputs.TEST_BROWSER }}
           ALLURE_RESULTS: "allure-results"
           ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}          
