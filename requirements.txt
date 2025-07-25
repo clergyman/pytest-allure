@@ -1,0 +1,16 @@
+allure-pytest==2.13.5
+allure-python-commons==2.13.5
+attrs==23.2.0
+flake8==7.0.0
+flake8-builtins==2.4.0
+iniconfig==2.0.0
+mccabe==0.7.0
+packaging==24.0
+pluggy==1.4.0
+pycodestyle==2.11.1
+pyflakes==3.2.0
+pytest==8.1.1
+setuptools==69.2.0
+wheel==0.43.0
+requests==2.31.0
+selenium==4.20.0
