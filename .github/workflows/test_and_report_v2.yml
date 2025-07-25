@@ -38,25 +38,3 @@ jobs:
         run: |
           pytest --alluredir=allure-results # Save raw Allure data to 'allure-results' directory
         continue-on-error: true # Continue even if some tests fail, so the report can still be generated
-
-      - name: Set up Java for Allure Report generation
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin' # Use Temurin OpenJDK distribution
-          java-version: '17'      # Allure requires Java to build the report
-
-      - name: Generate Allure Report
-        uses: allure-framework/allure-report-action@v2.0.0 # Action to generate the HTML report
-        id: allure-report-generation
-        with:
-          results_path: allure-results # Path to the raw Allure results
-          report_path: allure-report   # Directory where the HTML report will be generated
-
-      - name: Deploy Allure Report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4 # Action to publish to GitHub Pages
-        if: always() # Always run this step, even if previous steps failed
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub's default token for authentication
-          publish_dir: allure-report               # The directory containing your generated HTML report
-          publish_branch: gh-pages                 # The branch where the report will be pushed (GitHub Pages branch)
-          force_orphan: true                       # Overwrite existing content in gh-pages branch
