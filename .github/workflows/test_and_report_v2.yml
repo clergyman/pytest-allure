@@ -38,3 +38,24 @@ jobs:
         run: |
           pytest --alluredir=allure-results # Save raw Allure data to 'allure-results' directory
         continue-on-error: true # Continue even if some tests fail, so the report can still be generated
+
+      - name: install and configure allurectl
+        uses: allure-framework/setup-allurectl@v1
+        with:
+          allure-endpoint: ${{ secrets.ALLURE_ENDPOINT }}
+          allure-token: ${{ secrets.ALLURE_TOKEN }}
+          allure-project-id: 23
+      - name: Run pytest tests
+        run: | 
+          allurectl watch -- pytest --alluredir=${ALLURE_RESULTS} || true
+          printenv | grep "ALLURE\|GITHUB" > env.list
+          export $( allurectl job-run env)
+          printenv | grep TEST_
+          printenv | grep ALLURE_
+          echo "Now, printing what we have in env.list"
+          cat env.list
+        env:
+          TEST_ENDPOINT: ${{ github.event.inputs.TEST_ENDPOINT }}
+          TEST_BROWSER: ${{ github.event.inputs.TEST_BROWSER }}
+          ALLURE_RESULTS: "allure-results"
+          ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}          
