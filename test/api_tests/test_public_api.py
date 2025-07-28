@@ -1,7 +1,6 @@
 import requests
 import allure
 import pytest
-import time
 
 @allure.step('Call public API and check response')
 def test_public_api():
@@ -138,9 +137,3 @@ def test_stacktrace_enourmous():
            'M:MHM:M:MM:MMHIMHHIHMI      '::MMMMMMM:'
               'M'MHMM'M''MMHI'MMH'
 """
-
-@allure.step('Test with 50 percent probability failure')
-def test_flaky_time_based():
-    with allure.step('Check if current second is even or odd'):
-        second = int(time.time()) % 2
-        assert second == 0, f"Test failed because current second ({int(time.time())}) is odd!"
