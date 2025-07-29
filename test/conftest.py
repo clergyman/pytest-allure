@@ -30,7 +30,7 @@ from pytest import fixture
 #        _f.write(data)
 
 
-@fixture(scope='session')
+@fixture(scope='session', autouse=True)
 def simple_fixture():
     #before
     n=40*1 #better 40 times 1
