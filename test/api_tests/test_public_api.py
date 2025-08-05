@@ -2,6 +2,7 @@ import requests
 import allure
 import pytest
 
+@allure.label("driver", "chromium")
 @allure.step('Call public API and check response')
 def test_public_api():
     with allure.step('Send GET request to public API'):
@@ -33,10 +34,12 @@ def level_five():
     with allure.step('Level 5 - fail here'):
         assert False, 'This is a forced failure for stack trace demonstration.'
 
+@allure.label("driver", "firefox")
 @allure.step('Test with nested steps')
 def test_api_nested_steps():
     level_one() 
 
+@allure.label("driver", "webkit")
 @allure.step('Test with ascii art')
 def test_stacktrace_ascii_art():
     assert False, r"""

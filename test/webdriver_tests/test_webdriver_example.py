@@ -11,10 +11,8 @@ from selenium.webdriver.common.by import By
 @allure.testcase('https://github.com/pytest-dev/pytest/pull/1234')
 @allure.link('https://www.python.org', name='Python.org')   
 @allure.tag('webdriver', 'python', 'selenium')     
-#@fixture(autouse=True)
-def test_python_org_title(add_allure_environment_property):
-    add_allure_environment_property("Browser", "Chrome")
-    add_allure_environment_property("Environment", "Staging")
+@allure.label("os", "windows")
+def test_python_org_title(simple_fixture):
     with allure.step('Start WebDriver'):
         driver = webdriver.Chrome()
     try:
@@ -34,9 +32,7 @@ def test_python_org_title(add_allure_environment_property):
 @allure.feature('WebDriver')
 @allure.story('Fail and screenshot')
 @allure.tag('webdriver', 'python', 'selenium', 'fail')
-def test_fail_and_screenshot(add_allure_environment_property):
-    add_allure_environment_property("Browser", "Chrome")
-    add_allure_environment_property("Environment", "UAT")
+def test_fail_and_screenshot(simple_fixture):
     with allure.step('Start WebDriver'):
         driver = webdriver.Chrome()
     try:
