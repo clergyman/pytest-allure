@@ -8,7 +8,7 @@ import asyncio
 
 def session_on_node(node_id, session):
     with allure.step(f"Session#{session} on node {node_id}"):
-        assert False, "This is a forced failure for type collision demonstration. {input_value} is not {string_alias}"
+        assert 1==2
 
 
 def parallel_task_for_specific_node(node_id):
