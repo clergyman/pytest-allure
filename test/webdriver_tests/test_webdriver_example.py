@@ -28,7 +28,7 @@ def test_python_org_title(simple_fixture):
 
 @allure.title('Failing test with screenshot')
 @allure.description('This test intentionally fails and attaches a screenshot to the Allure report')
-@allure.severity(allure.severity_level.NORMAL)
+@allure.severity(allure.severity_level.CRITICAL)
 @allure.feature('WebDriver')
 @allure.story('Fail and screenshot')
 @allure.tag('webdriver', 'python', 'selenium', 'fail')

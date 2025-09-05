@@ -35,6 +35,7 @@ def level_five():
         assert False, 'This is a forced failure for stack trace demonstration.'
 
 @allure.label("driver", "firefox")
+@allure.label("os", "linux")
 @allure.step('Test with nested steps')
 def test_api_nested_steps():
     level_one() 

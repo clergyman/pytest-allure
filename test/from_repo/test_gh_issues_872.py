@@ -67,3 +67,21 @@ def test_multithreaded_asyncio():
             ])
 
     asyncio.run(main())
+
+@allure.step("Session#{session} on node {node_id}")
+def session_step_decorated(node_id, session):
+    pass
+
+@allure.step("Parallel task for node {node_id}")
+def run_for_node_decorated(node_id):
+    with ThreadPoolExecutor() as session_executor:
+        for session in range(5):
+            session_executor.submit(session_step_decorated, node_id, session)
+        session_executor.shutdown(wait=True)
+
+@allure.step("Entrance")
+def test_multithreaded_single_function_decorated():
+    with ThreadPoolExecutor() as node_executor:
+        for node_id in range(3):
+            node_executor.submit(run_for_node_decorated, node_id)
+        node_executor.shutdown(wait=True)

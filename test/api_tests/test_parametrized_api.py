@@ -89,6 +89,7 @@ def test_reverse_string(input_str, expected):
     """
     Test string reversal with custom IDs for each case.
     """
+    
     with allure.step(f"Reverse string: {input_str}"):
         if input_str is None:
             assert expected is None
