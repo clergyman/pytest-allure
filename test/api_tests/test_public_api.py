@@ -4,6 +4,7 @@ import pytest
 
 @allure.label("driver", "chromium")
 @allure.step('Call public API and check response')
+@allure.label("severity", "critical")
 def test_public_api():
     with allure.step('Send GET request to public API'):
         response = requests.get('https://api.github.com')
@@ -37,11 +38,13 @@ def level_five():
 @allure.label("driver", "firefox")
 @allure.label("os", "linux")
 @allure.step('Test with nested steps')
+@allure.label("severity", "major")
 def test_api_nested_steps():
     level_one() 
 
 @allure.label("driver", "webkit")
 @allure.step('Test with ascii art')
+@allure.label("severity", "critical")
 def test_stacktrace_ascii_art():
     assert False, r"""
  ________________________________________
@@ -56,6 +59,7 @@ def test_stacktrace_ascii_art():
 """
 
 @allure.step('Test with enourmous stack trace')
+@allure.label("severity", "blocker")
 def test_stacktrace_enourmous():
     assert False, r"""
     M.                                          .:M
