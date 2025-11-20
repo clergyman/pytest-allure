@@ -1,0 +1,27 @@
+{
+  "name": "pytest-allure",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "allure run -- pytest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epszaw/pytest-allure.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/epszaw/pytest-allure/issues"
+  },
+  "homepage": "https://github.com/epszaw/pytest-allure#readme",
+  "devDependencies": {
+    "@allurereport/core": "^3.0.0-beta.23",
+    "allure": "^3.0.0-beta.23"
+  }
+}

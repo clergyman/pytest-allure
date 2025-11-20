@@ -169,3 +169,5 @@ cython_debug/
 
 
 /history
+node_modules/
+.allure/
