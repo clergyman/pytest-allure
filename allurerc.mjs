@@ -1,13 +1,30 @@
+import { passRateCriticalsRule } from "./custom_rules/crit_passrate.ts"
+import { passRateNonCriticalsRule } from "./custom_rules/non_crit_passrate.ts"
+import { maxFailuresRule } from "@allurereport/core"
+import { successRateRule } from "allure/rules"
+
 export default {
   name: "Allure Report 3",
   output: "./allure-report",
   qualityGate: {
     rules: [
       {
-        maxFailures: 3,
-        fastFail: true
+        
+        passRateCriticals: 0.95,
+        maxFailures: 1
       },
+      {
+        successRate: 0.90,
+        filter: (tr) => tr.labels.some((label) => label.name === "severity" && !["critical","blocker"].includes(label.value) )
+      }
     ],
+    use: [
+      {...successRateRule
+        message: ({ actual, expected }) => `We are not doing good: ${actual} >= ${expected}`
+      }, 
+      {passRateCriticalsRule}, 
+      {maxFailuresRule}
+      ]
   },
   plugins: {
     awesome: {
