@@ -1,21 +1,29 @@
 import { passRateCriticalsRule } from "./custom_rules/crit_passrate.js";
-import { maxFailuresRule } from "@allurereport/core";
-import { successRateRule } from "allure/rules";
+import { maxFailuresRule, successRateRule } from "allure/rules";
+import { defineConfig } from "allure";
 
-/** @type {import("allure").AllureConfig} */
-export default {
+
+// const { MY_ENV } = process.env.MY_ENV;
+// console.log("AAAAAAA MY_ENV: ", MY_ENV);
+
+//console.log("BAAAAAAAAA process envs", process.env);
+
+let { MY_ENV, MY_ENV2 } = process.env;
+
+
+export default defineConfig({
   name: "Allure Report 3",
   output: "./allure-report",
   qualityGate: {
     rules: [
       {
-        passRateCriticals: 0.95,
+        passRateCriticals: MY_ENV2 ? Number(MY_ENV2) : 0.95,
         maxFailures: 1,
       },
       {
-        successRate: 0.9,
+        successRate: MY_ENV ? Number(MY_ENV) : 0.90,
         filter: (tr) =>
-          tr.labels.some(
+          tr.labels.some( 
             (label) =>
               label.name === "severity" &&
               !["critical", "blocker"].includes(label.value),
@@ -75,4 +83,4 @@ export default {
         labels.find(({ name, value }) => name === "os" && value === "linux"),
     },
   },
-};
+});
