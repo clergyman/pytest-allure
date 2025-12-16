@@ -43,4 +43,4 @@ jobs:
 
       - name: Run pytest tests with allure3
         run: | 
-          allure run -- pytest
+          npx allure run -- pytest
