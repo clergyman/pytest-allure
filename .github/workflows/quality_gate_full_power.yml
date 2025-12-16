@@ -10,6 +10,13 @@ on:
         description: "ALLURE_USERNAME service parameter. Leave blank"
         required: false
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
+
 env:
   ALLURE_RESULTS: "build/allure-results"
   ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
@@ -55,3 +62,18 @@ jobs:
       - name: Run pytest tests with allure3
         run: | 
           npx allure run -- pytest
+          ls -la ./allure-report
+
+      - name: Allure Report 3 Official Action
+        uses: allure-framework/allure-action@v0
+        with:
+          report-directory: "./allure-report"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './allure-report'
