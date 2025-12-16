@@ -65,6 +65,7 @@ jobs:
           ls -la ./allure-report
 
       - name: Allure Report 3 Official Action
+        continue-on-error: true
         uses: allure-framework/allure-action@v0
         with:
           report-directory: "./allure-report"
