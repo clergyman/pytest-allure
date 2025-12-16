@@ -31,7 +31,7 @@ jobs:
           pip install -r requirements.txt
           pip install allure-pytest # Ensure allure-pytest is installed
 
-      - name: Set up Node
+      - name: Set up node runtime
         uses: actions/setup-node@v6
         with:
           node-version: 24
@@ -39,9 +39,11 @@ jobs:
       - name: Install allure3
         run: npm install -g allure
 
-      - name: Set up Node
+      - name: Init Node project
         run: npm init -y
-        run: add -D allure
+
+      - name: Add allure to dev dependencies
+        run: npm install -D allure
 
       - name: Set up Python
         uses: actions/setup-python@v5
