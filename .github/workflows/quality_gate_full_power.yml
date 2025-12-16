@@ -82,7 +82,7 @@ jobs:
           path: './allure-report'
 
   deploy:
-    needs: build
+    needs: run_tests_and_generate_report_v2
     runs-on: ubuntu-latest
     environment:
       name: github-pages
