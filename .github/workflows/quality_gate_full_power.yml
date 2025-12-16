@@ -30,6 +30,9 @@ jobs:
         with:
           node-version: 24
 
+      - name: Install allure3
+        run: npm install -g allure
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
