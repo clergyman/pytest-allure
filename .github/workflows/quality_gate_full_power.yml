@@ -1,4 +1,4 @@
-name: GitHub integration testops
+name: Quality Gate Full Power
 
 on:
   workflow_dispatch:
