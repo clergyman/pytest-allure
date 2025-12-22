@@ -74,6 +74,7 @@ jobs:
           set +e
           npx allure run -- pytest --alluredir=${ALLURE_RESULTS}
           rc=$?
+          echo "Tests exit code: $rc"
           # Export the exit code as a step output so it can be consumed by other jobs
           echo "tests_exit_code=$rc" >> $GITHUB_OUTPUT
 
