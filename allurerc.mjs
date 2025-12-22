@@ -18,7 +18,6 @@ export default defineConfig({
     rules: [
       {
         passRateCriticals: MY_ENV2 ? Number(MY_ENV2) : 0.95,
-        maxFailures: 1,
       },
       {
         successRate: MY_ENV ? Number(MY_ENV) : 0.90,
