@@ -81,14 +81,14 @@ jobs:
         with:
           path: './allure-report'
 
-  deploy:
+  publish:
     needs: run_tests_and_generate_report_v2
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.publish.outputs.page_url }}
 
     steps:
-      - name: Deploy to GitHub Pages
-        id: deploy
+      - name: Publish to GitHub Pages
+        id: publish
         uses: actions/deploy-pages@v4
