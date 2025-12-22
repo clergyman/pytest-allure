@@ -39,8 +39,6 @@ jobs:
     steps:
       - name: Checkout from the demo branch
         uses: actions/checkout@v4 # Get your repository's code
-        with:
-          ref: newsletter2512
 
       - name: Install dependencies
         run: |
