@@ -1,5 +1,5 @@
 import { passRateCriticalsRule } from "./custom_rules/crit_passrate.js";
-import { maxFailuresRule, successRateRule } from "allure/rules";
+import { successRateRule } from "allure/rules";
 import { defineConfig } from "allure";
 
 
@@ -17,9 +17,7 @@ export default defineConfig({
   qualityGate: {
     rules: [
       {
-        maxFailures: 10,
-      },
-      {
+        maxFailures: 0,
         passRateCriticals: MY_ENV2 ? Number(MY_ENV2) : 0.95,
       },
       {
@@ -33,7 +31,6 @@ export default defineConfig({
       },
     ],
     use: [
-      maxFailuresRule,
       passRateCriticalsRule,
       {
         ...successRateRule,
