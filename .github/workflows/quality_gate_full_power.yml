@@ -68,7 +68,6 @@ jobs:
 
 
       - name: Run pytest tests with allure3
-        continue-on-error: true
         id: run_tests
         run: |
           # Don't exit the script on non-zero so we can capture the exit code
