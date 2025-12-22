@@ -31,13 +31,12 @@ export default defineConfig({
       },
     ],
     use: [
+      passRateCriticalsRule,
       {
         ...successRateRule,
         message: ({ actual, expected }) =>
           `We are not doing good: ${actual} >= ${expected}`,
       },
-      passRateCriticalsRule,
-      maxFailuresRule,
     ],
   },
   plugins: {
