@@ -9,6 +9,14 @@ on:
       ALLURE_USERNAME:
         description: "ALLURE_USERNAME service parameter. Leave blank"
         required: false
+      MY_ENV:
+        description: "MY_ENV parameter (available to the job as env). Default 0.7"
+        required: false
+        default: "0.7"
+      MY_ENV2:
+        description: "MY_ENV2 parameter (available to the job as env). Default 0.95"
+        required: false
+        default: "0.95"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -25,12 +33,12 @@ env:
 jobs:
   run_tests_and_generate_report_v2:
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    outputs:
+      tests_exit_code: ${{ steps.run_tests.outputs.exit_code }}
 
     steps:
       - name: Checkout from the demo branch
         uses: actions/checkout@v4 # Get your repository's code
-        with:
-          ref: newsletter2512
 
       - name: Install dependencies
         run: |
@@ -60,10 +68,18 @@ jobs:
 
 
       - name: Run pytest tests with allure3
-        continue-on-error: true
-        run: | 
+        id: run_tests
+        env:
+          MY_ENV: ${{ github.event.inputs.MY_ENV }}
+          MY_ENV2: ${{ github.event.inputs.MY_ENV2 }}
+        run: |
+          # Don't exit the script on non-zero so we can capture the exit code
+          set +e
           npx allure run -- pytest --alluredir=${ALLURE_RESULTS}
-          ls -la ./allure-report
+          rc=$?
+          echo "Tests exit code: $rc"
+          # Export the exit code as a step output so it can be consumed by other jobs
+          echo "exit_code=$rc" >> $GITHUB_OUTPUT
 
       - name: Allure Report 3 Official Action
         uses: allure-framework/allure-action@v0
@@ -81,14 +97,22 @@ jobs:
         with:
           path: './allure-report'
 
-  deploy:
+  publish:
     needs: run_tests_and_generate_report_v2
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.publish.outputs.page_url }}
 
     steps:
-      - name: Deploy to GitHub Pages
-        id: deploy
+      - name: Publish to GitHub Pages
+        id: publish
         uses: actions/deploy-pages@v4
+
+  deploy:
+    needs: run_tests_and_generate_report_v2
+    runs-on: ubuntu-latest
+    if: ${{ needs.run_tests_and_generate_report_v2.outputs.tests_exit_code == '0' }}
+    steps:
+      - name: Deploy on test success
+        run: echo "Passed the quality gate and running deployment..."

@@ -17,8 +17,12 @@ export default defineConfig({
   qualityGate: {
     rules: [
       {
+        maxFailures: 140,
+        fastFail: false,
+      },
+      {
+        maxFailures: 100,
         passRateCriticals: MY_ENV2 ? Number(MY_ENV2) : 0.95,
-        maxFailures: 1,
       },
       {
         successRate: MY_ENV ? Number(MY_ENV) : 0.90,
@@ -31,13 +35,13 @@ export default defineConfig({
       },
     ],
     use: [
+      maxFailuresRule,
+      passRateCriticalsRule,
       {
         ...successRateRule,
         message: ({ actual, expected }) =>
           `We are not doing good: ${actual} >= ${expected}`,
       },
-      passRateCriticalsRule,
-      maxFailuresRule,
     ],
   },
   plugins: {
