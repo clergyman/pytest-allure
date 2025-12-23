@@ -81,12 +81,6 @@ jobs:
           # Export the exit code as a step output so it can be consumed by other jobs
           echo "exit_code=$rc" >> $GITHUB_OUTPUT
 
-      - name: Allure Report 3 Official Action
-        uses: allure-framework/allure-action@v0
-        with:
-          report-directory: "./allure-report"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
