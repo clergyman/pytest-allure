@@ -31,7 +31,7 @@ env:
 
 
 jobs:
-  run_tests_and_generate_report_v2:
+  run_tests_allure3:
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
     outputs:
       tests_exit_code: ${{ steps.run_tests.outputs.exit_code }}
@@ -98,7 +98,7 @@ jobs:
           path: './allure-report'
 
   publish:
-    needs: run_tests_and_generate_report_v2
+    needs: run_tests_allure3
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -110,9 +110,9 @@ jobs:
         uses: actions/deploy-pages@v4
 
   deploy:
-    needs: run_tests_and_generate_report_v2
+    needs: run_tests_allure3
     runs-on: ubuntu-latest
-    if: ${{ needs.run_tests_and_generate_report_v2.outputs.tests_exit_code == '0' }}
+    if: ${{ needs.run_tests_allure3.outputs.tests_exit_code == '0' }}
     steps:
       - name: Deploy on test success
         run: echo "Passed the quality gate and running deployment..."
