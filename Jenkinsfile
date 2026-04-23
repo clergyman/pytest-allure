@@ -6,7 +6,7 @@ pipeline {
         string(name: 'MY_ENV2', defaultValue: '0.95', description: 'Second threshold value (e.g., for use in JavaScript code)')
     }
     tools {
-        nodejs 'node22'
+        nodejs 'node25'
     }
 
     stages {
